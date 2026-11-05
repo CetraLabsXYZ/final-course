@@ -30,3 +30,7 @@ class ExamFlowTests(TestCase):
         response = self.client.get(reverse('onlinecourse:show_exam_result', args=[self.course.id, submission.id]))
         self.assertEqual(response.status_code, 404)
 
+    def test_submission_has_a_readable_label(self):
+        submission = Submission.objects.create(enrollment=Enrollment.objects.get(user=self.user, course=self.course))
+        self.assertEqual(str(submission), f'Submission {submission.pk} for learner')
+
